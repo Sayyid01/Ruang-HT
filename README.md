@@ -1,5 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://commons.wikimedia.org/wiki/File:Pertamina_Logo.svg#/media/Berkas:Pertamina_Logo.svg" width="400"></a></p>
-
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://user-images.githubusercontent.com/42909243/119952179-efa61180-bfc6-11eb-8534-43d86c4ee9de.png" width="400"></a></p>
 
 
 <p align="center">
