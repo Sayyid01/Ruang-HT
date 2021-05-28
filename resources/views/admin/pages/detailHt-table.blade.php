@@ -32,30 +32,50 @@
             <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
                     <tbody>
+                        @foreach($detail_ht as $detail_ht)
                         <tr>
                             <td>Serial Number HT</td>
-                            <td>Aji Sutarno</td>
+                            <td>{{$detail_ht->sn_ht}}</td>
                         </tr>
                         <tr>
                             <td>Serial Number Baterai</td>
-                            <td>Aji Sutarno</td>
+                            <td>{{$detail_ht->sn_baterai}}</td>
                         </tr>
                         <tr>
                             <td>Merk</td>
-                            <td>Aji Sutarno</td>
+                            <td>{{$detail_ht->merk}}</td>
                         </tr>
                         <tr>
                             <td>Tipe HT</td>
-                            <td>Aji Sutarno</td>
+                            <td>{{$detail_ht->jenis_ht}}</td>
+                        </tr>
+                        <tr>
+                            <td>Status HT</td>
+                            @php 
+                                if($detail_ht -> status == 0){
+                                    echo "<td><span class='badge badge-success'>Aktif</span></td>";
+                                }else{
+                                    echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                                }
+                            @endphp
+                        </tr>
+                        <tr>
+                            <td>Tanggal Alokasi</td>
+                            <td>{{$detail_ht->tanggal_alokasi}}</td>
                         </tr>
                         <tr>
                             <td>Pemilik</td>
-                            <td>Aji Sutarno</td>
+                            <td>{{$detail_ht->kepemilikan}}</td>
                         </tr>
                         <tr>
-                            <td>Status</td>
-                            <td>Aji Sutarno</td>
+                            <td>Jabatan</td>
+                            <td>{{$detail_ht->jabatan}}</td>
                         </tr>
+                        <tr>
+                            <td>Kontak Penerima</td>
+                            <td>{{$detail_ht->no_telpon}}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -75,7 +95,7 @@
                 <table class="table align-items-center table-flush" id="dataTable">
                     <thead class="thead-light">
                         <tr>
-                            <th>Tanggal</th>
+                            <th>Tanggal Periksa</th>
                             <th>Foto HT</th>
                             <th>Status</th>
                             <th>Kondisi</th>
@@ -85,7 +105,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Tanggal</th>
+                            <th>Tanggal Periksa</th>
                             <th>Foto HT</th>
                             <th>Status</th>
                             <th>Kondisi</th>
@@ -94,46 +114,22 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                        @foreach($status as $histori_status)
                         <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
+                            <td>{{$histori_status->tanggal}}</td>
+                            <td>{{$histori_status->foto_alat}}</td>
+                            @php 
+                                if($histori_status -> status == 0){
+                                    echo "<td><span class='badge badge-success'>Aktif</span></td>";
+                                }else{
+                                    echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                                }
+                            @endphp
+                            <td>{{$histori_status->kondisi}}</td>
+                            <td>{{$histori_status->jenis_ht}}</td>
+                            <td>{{$histori_status->lokasi_ht}}</td>
                         </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29</td>
-                            <td>$433,060</td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -175,56 +171,18 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                    @foreach($kepemilikan as $histori_kepemilikan)
                         <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
+                            <td>{{$histori_kepemilikan->tanggal_alokasi}}</td>
+                            <td>{{$histori_kepemilikan->tanggal_penarikan}}</td>
+                            <td>{{$histori_kepemilikan->nama_penerima}}</td>
+                            <td>{{$histori_kepemilikan->penanggung_jawab}}</td>
+                            <td>{{$histori_kepemilikan->jabatan}}</td>
+                            <td>{{$histori_kepemilikan->fungsi}}</td>
+                            <td>{{$histori_kepemilikan->no_pegawai}}</td>
+                            <td>{{$histori_kepemilikan->no_telpon}}</td>
                         </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29</td>
-                            <td>$433,060</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>$162,700</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

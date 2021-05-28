@@ -21,7 +21,7 @@
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">@yield('title-2')</h1>
                             <ol class="breadcrumb"> 
-                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">@yield('title-3')</li>
                             </ol>
                         </div>

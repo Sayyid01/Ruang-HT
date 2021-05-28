@@ -21,16 +21,16 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDataTable" aria-expanded="true" aria-controls="collapseDataTable">
             <i class="far fa-fw fa-window-maximize"></i>
-            <span>Daftar Table</span>
+            <span>Datac Table</span>
         </a>
         <div id="collapseDataTable" class="collapse
-        @if (request()->is('admin/detailHt') || request()->is('admin/dataHtPerLokasi'))
+        @if (request()->is('admin/detailHt') || request()->is('admin/lokasi-table'))
         show
         @endif" aria-labelledby="headingDataTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Daftar Table</h6>
-                <a class="collapse-item{{ request()->is('admin/dataHtPerLokasi') ? ' active' : '' }}" href="{{ route('dataHtPerLokasi') }}">Data HT</a>
-                <a class="collapse-item{{ request()->is('admin/detailHt') ? ' active' : '' }}" href="{{ route('detailHt-table') }}">Detail HT</a>
+                <h6 class="collapse-header">Data Table</h6>
+                <a class="collapse-item{{ request()->is('admin/pengguna-table') ? ' active' : '' }}" href="{{ route('pengguna-table') }}">Data Pengguna</a>
+                <a class="collapse-item{{ request()->is('admin/lokasi-table') ? ' active' : '' }}" href="{{ route('lokasi-table') }}">Data Lokasi</a>
             </div>
         </div>
     </li>
@@ -47,35 +47,14 @@
         @endif" aria-labelledby="headingInputForm" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Input Form</h6>
-                <a class="collapse-item{{ request()->is('admin/forms-datareference') ? ' active' : '' }}" href="{{ route('forms-datareference') }}">Form Data Reference</a>
             </div>
         </div>
     </li>
 
-    <!-- Ignore everything start from this line, until... -->
-
+    <!-- Ignore here untill... -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="true" aria-controls="collapseBootstrap">
-            <i class="far fa-fw fa-window-maximize"></i>
-            <span>Bootstrap UI</span>
-        </a>
-        <div id="collapseBootstrap" class="collapse
-        @if (request()->is('admin/alerts') || request()->is('admin/buttons') || request()->is('admin/dropdowns') || request()->is('admin/modals') || request()->is('admin/popovers') || request()->is('admin/progress-bars'))
-        show
-        @endif" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Bootstrap UI</h6>
-                <a class="collapse-item{{ request()->is('admin/alerts') ? ' active' : '' }}" href="{{ route('alerts') }}">Alerts</a>
-                <a class="collapse-item{{ request()->is('admin/buttons') ? ' active' : '' }}" href="{{ route('buttons') }}">Buttons</a>
-                <a class="collapse-item{{ request()->is('admin/dropdowns') ? ' active' : '' }}" href="{{ route('dropdowns') }}">Dropdowns</a>
-                <a class="collapse-item{{ request()->is('admin/modals') ? ' active' : '' }}" href="{{ route('modals') }}">Modals</a>
-                <a class="collapse-item{{ request()->is('admin/popovers') ? ' active' : '' }}" href="{{ route('popovers') }}">Popovers</a>
-                <a class="collapse-item{{ request()->is('admin/progress-bars') ? ' active' : '' }}" href="{{ route('progress-bars') }}">Progress Bars</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true" aria-controls="collapseForm">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+            aria-controls="collapseForm">
             <i class="fab fa-fw fa-wpforms"></i>
             <span>Forms</span>
         </a>
@@ -90,59 +69,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span>
-        </a>
-        <div id="collapseTable" class="collapse
-        @if (request()->is('admin/simple-table') || request()->is('admin/datatables'))
-        show
-        @endif" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Tables</h6>
-                <a class="collapse-item{{ request()->is('admin/simple-table') ? ' active' : '' }}" href="{{ route('simple-table') }}">Simple Tables</a>
-                <a class="collapse-item{{ request()->is('admin/datatables') ? ' active' : '' }}" href="{{ route('datatables') }}">DataTables</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item{{ request()->is('admin/ui-colours') ? ' active' : ''}}">
-        <a class="nav-link" href="{{ route('ui-colours') }}">
-            <i class="fas fa-fw fa-palette"></i>
-            <span>UI Colors</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Examples
-    </div>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true" aria-controls="collapsePage">
-            <i class="fas fa-fw fa-columns"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePage" class="collapse
-        @if (request()->is('admin/404') || request()->is('admin/blank-page'))
-        show
-        @endif" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Example Pages</h6>
-                <a class="collapse-item" href="{{ route('login') }}">Login</a>
-                <a class="collapse-item" href="{{ route('register') }}">Register</a>
-                <a class="collapse-item{{ request()->is('admin/404') ? ' active' : '' }}" href="{{ route('404') }}">404 Page</a>
-                <a class="collapse-item{{ request()->is('admin/blank-page') ? ' active' : '' }}" href="{{ route('blank-page') }}">Blank Page</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item{{ request()->is('admin/charts') ? ' active' : ''}}">
-        <a class="nav-link" href="{{ route('charts') }}">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span>
-        </a>
-    </li>
-
-    <!-- this line -->
-
+<!-- here -->
     <hr class="sidebar-divider">
     <div class="version" id="version-ruangadmin"></div>
 </ul>

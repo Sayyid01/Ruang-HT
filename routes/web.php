@@ -25,8 +25,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::post('/forms-datareference/submitLokasi', 'LokasiController@insertLokasi')->name('submitLokasi');
     Route::post('/forms-datareference/submitJenisHT', 'HTController@insertJenisHT')->name('submitJenisHT');
 
-    Route::get('/detailHt', 'HTController@getDetailHtTable')->name('detailHt-table');
+    Route::get('/detailHt-table', 'HTController@getDetailHtTable')->name('detailHt-table');
     Route::get('/dataHtPerLokasi', 'HTController@getDataHtTable')->name('dataHtPerLokasi');
+    Route::get('/lokasi-table', 'LokasiController@getTableLokasi')->name('lokasi-table');
+    Route::get('/pengguna-table', 'HTController@getKepemilikanHtTable')->name('pengguna-table');
 
 
 
