@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'Detail HT')
-@section('title-2', 'Detail HT')
-@section('title-3', 'Detail HT')
+@section('title', 'Detail Assignment HT')
+@section('title-2', 'Detail Assignment HT')
+@section('title-3', 'Detail Assignment HT')
 
 @push('css')
 <link href="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -14,6 +14,7 @@
 $numberStatus = 0;
 $numberPengguna = 0;
 @endphp
+
 
 <div class="row mb-3">
     {{-- Datatables --}}
@@ -79,19 +80,126 @@ $numberPengguna = 0;
                             <td>Kontak Penanggung Jawab</td>
                             <td>{{$penanggungJawab->no_telpon}}</td>
                         </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-4">
+                                    <div class="card h-100">
+                                        <button class="card-body btn btn-warning" data-toggle="modal" title="Inspeksi HT" data-target="#modalInspeksiHt">
+                                            <div class="align-items-center">
+                                                <i class="fas fa-list-ul fa-4x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-4">
+                                    <div class="card h-100">
+                                        <button class="card-body btn btn-danger" data-toggle="modal" title="Withdraw HT" data-target="#modalWithdrawHt">
+                                            <div class="align-items-center">
+                                                <i class="fas fa-minus-circle fa-4x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div class="w-100"></div>
+    <!-- Modal Inspeksi HT -->
+    <div class="modal fade" id="modalInspeksiHt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Inspeksi HT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('tambahHistoriStatus') }}" method="POST">
+                    @csrf
+
+                    <div class="modal-body">
+                        <!-- di hidden karena ga perlu dilihat user -->
+                        <div hidden>
+                            <input type="text" name="snHt" class="form-control" value="{{$infoHt->sn_ht}}" readonly>
+                            <input type="date" name="tanggalAlokasi" class="form-control" value="{{$status->tanggal_alokasi}}" readonly>
+                            <input type="text" name="alamat" class="form-control" value="{{$status->alamat_ht}}" readonly></input>
+                            <input type="text" name="pengguna" class="form-control" value="{{$status->pengguna}}" readonly></input>
+                        </div>
+                        <!-- dilihat pengguna -->
+                        <div class="form-group">
+                            <label for="tanggalPeriksa">Tanggal Periksa</label>
+                            <input class="form-control" type="date" name="tanggalPeriksa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customFile">Upload Gambar</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Masukkan gambar HT</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control mb-3" name="status" required="required">
+                                <option value="0" selected>Aktif</option>
+                                <option value="1">Nonaktif</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kondisi">Kondisi</label>
+                            <textarea class="form-control" name="kondisi" rows="3" placeholder="Masukkan kondisi HT sebenarnya" required="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <input type="submit" class="btn btn-primary" value="Perbarui Status"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Withdraw HT -->
+    <div class="modal fade" id="modalWithdrawHt" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Withdraw HT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('withdrawHt') }}" method="POST">
+                    @csrf
+
+                    <div class="modal-body">
+                        <!-- di hidden karena ga perlu dilihat user -->
+                        <div hidden>
+                            <input type="text" name="snHt" class="form-control" value="{{$infoHt->sn_ht}}" readonly>
+                        </div>
+                        <!-- dilihat pengguna -->
+                        <div class="form-group">
+                            <label for="tanggalPenarikan">Tanggal Penarikan</label>
+                            <input class="form-control" type="date" name="tanggalPenarikan" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <input type="submit" class="btn btn-primary" value="Withdraw"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     {{-- Datatables --}}
     <div class="col mb-3">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Histori status HT</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Histori Status HT</h6>
             </div>
 
             <div class="table-responsive p-3">

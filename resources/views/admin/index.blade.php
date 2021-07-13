@@ -14,25 +14,23 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col mr-2 ">
-                        <a href="{{ route('dataHtPerLokasi') }}?subject={{$lok->lokasi}}">
-                            <div class="text-s font-weight-bold text-uppercase mb-1">{{$lok->lokasi}}</div>
+                        <a href="{{ route('dataAlamat-table') }}?lokasi={{$lok->lokasi}}">
+                            <div class="text-s font-weight-bold text-uppercase mb-1">{{$lok->lokasi}}, {{$lok->wilayah}}</div>
                         </a>
                         <div class="mt-2 mb-0 text-muted text-xs">
                             <span>Total HT</span>
                         </div>
 
-                        <!-- Menghitung jumlah total ht dalam suatu wilayah -->
-
+                        <!-- Menghitung jumlah total ht dalam suatu lokasi -->
                         @php
                         $jumlahHT = 0;
-                        $jml_array = count($lokasi_status);
-                        
-                        for ($i = 0; $i < $jml_array; $i++){
-                            if(strcmp($lokasi_status[$i]->lokasi_ht,$lok->lokasi) == 0){
-                                $jumlahHT++;
+                        $jml_array = count($status);
+
+                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($status[$i]->lokasi,$lok->lokasi) == 0){
+                            $jumlahHT++;
                             }
-                        }
-                        @endphp
+                            }
+                            @endphp
 
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jumlahHT}}</div>
                     </div>
@@ -41,11 +39,11 @@
         </div>
     </div>
     @endforeach
+</div>
 
+@endsection
 
-    @endsection
-
-    @push('js')
-    <script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('dist/js/demo/chart-area-demo.js') }}"></script>
-    @endpush
+@push('js')
+<script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('dist/js/demo/chart-area-demo.js') }}"></script>
+@endpush

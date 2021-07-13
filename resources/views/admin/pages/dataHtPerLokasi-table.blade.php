@@ -8,7 +8,7 @@
 
 @php
 $number = 0;
-$lokasi = $_GET['subject'];
+$lokasi = $_GET['alamat'];
 @endphp
 <div class="row mb-3">
     <div class="col-lg-12 mb-4">
@@ -22,31 +22,33 @@ $lokasi = $_GET['subject'];
                     <thead class="thead-light">
                         <tr>
                             <th>No</th>
-                            <th>Pemilik</th>
-                            <th>Jenis HT</th>
+                            <th>Tanggal Alokasi</th>
+                            <th>Tanggal Penarikan</th>
                             <th>SN HT</th>
+                            <th>Pengguna</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($dataHt as $dataHt)
+                        @foreach($status as $status)
                         @php
                         $number++;
                         @endphp
                         <tr>
                             <td>{{$number}}</td>
-                            <td>{{$dataHt -> pemilik}}</td>
-                            <td>{{$dataHt -> jenis_ht}}</td>
-                            <td>{{$dataHt -> sn_ht}}</td>
-                            @php 
-                            if($dataHt -> status == 0){
-                                echo "<td><span class='badge badge-success'>Aktif</span></td>";
+                            <td>{{$status->tanggal_alokasi}}</td>
+                            <td>{{$status->tanggal_penarikan}}</td>
+                            <td>{{$status -> sn_ht}}</td>
+                            <td>{{$status -> pengguna}}</td>
+                            @php
+                            if($status -> status == 0){
+                            echo "<td><span class='badge badge-success'>Aktif</span></td>";
                             }else{
-                                echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                            echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
                             }
                             @endphp
-                            <td><a href="{{ route('detailHt-table') }}?pemilik={{$dataHt -> pemilik}} & sn_ht={{$dataHt -> sn_ht}}" class="btn btn-sm btn-primary">Detail</a></td>
+                            <td><a href="{{ route('detailHt-table') }}?sn_ht={{$status -> sn_ht}}" class="btn btn-sm btn-primary">Detail</a></td>
                         </tr>
                         @endforeach
                     </tbody>
