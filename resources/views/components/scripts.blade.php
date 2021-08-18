@@ -21,14 +21,20 @@
 
 
     $(document).ready(function() {
+        //Clickable row
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
 
         //update data lokasi
         $(document).on('click', 'button[data-role=updateModalLokasi]', function() {
             let id = $(this).data("id");
+            let kantor = $('#' + id).children('td[data-target=kantor]').text();
             let alamat = $('#' + id).children('td[data-target=alamat]').text();
-            let lokasi = $('#' + id).children('td[data-target=lokasi]').text();
+            let lokasi = $('#' + id).children('td[data-target=lokasi]').data('id');
 
             $('#id_lokasi_update').val(id);
+            $('#kantor_update').val(kantor);
             $('#alamat_update').val(alamat);
             $('#lokasi_update').val(lokasi);
             $('#modalUpdateLokasi').modal('toggle');
@@ -37,12 +43,10 @@
         //update data pengguna
         $(document).on('click', 'button[data-role=modalUpdatePengguna]', function() {
             let id = $(this).data("id");
-            let nama_pengguna = $('#' + id).children('td[data-target=nama_pengguna]').text();
-            let penanggung_jawab = $('#' + id).children('td[data-target=penanggung_jawab]').text();
+            let nama_pengguna = $('#' + id).children('td[data-target=nama]').text();
 
             $('#id_pengguna_update').val(id);
             $('#updateNamaPengguna').val(nama_pengguna);
-            $('#updatePenanggungJawab').val(penanggung_jawab);
             $('#modalUpdatePengguna').modal('toggle');
         });
 
@@ -67,43 +71,91 @@
             let id = $(this).data("id");
             let sn_ht = $('#' + id).children('td[data-target=snHt]').text();
             let sn_baterai = $('#' + id).children('td[data-target=snBaterai]').text();
-            let merk = $('#' + id).children('td[data-target=merk]').text();
-            let jenis_ht = $('#' + id).children('td[data-target=jenisHt]').text();
+            let merk = $('#' + id).children('td[data-target=merk]').data("id");
 
             $('#id_ht').val(id);
             $('#updateSnHt').val(sn_ht);
             $('#updateSnBaterai').val(sn_baterai);
             $('#updateMerk').val(merk);
-            $('#updateJenisHt').val(jenis_ht);
             $('#modalUpdateListHT').modal('toggle');
         });
 
-        //update data alat
-        $(document).on('click', 'button[data-role=modalUpdateListAlat]', function() {
+        //update data merk alat
+        $(document).on('click', 'button[data-role=modalUpdateMerkAlat]', function() {
             let id = $(this).data("id");
             let merk = $('#' + id).children('td[data-target=merk]').text();
-            let jenis = $('#' + id).children('td[data-target=jenis]').text();
-            let fungsi = $('#' + id).children('td[data-target=fungsi]').text();
-
-            $('#id_alat').val(id);
-            $('#updateMerk').val(merk);
-            $('#updateJenis').val(jenis);
-            $('#updateFungsi').val(fungsi);
-            $('#modalUpdateListAlat').modal('toggle');
-        });
-
-        //update assign data
-        $(document).on('click', 'button[data-role=updateAssignData]', function(){
-            let id = $(this).data("id");
-            let tanggalPenarikan = $('#' + id).children('td[data-target=tanggalPenarikan]').text();
-            let pengguna = $('#' + id).children('td[data-target=pengguna]').text();
+            let jenis = $('#' + id).children('td[data-target=jenis]').data("value");
 
             console.log(id);
+            console.log(merk);
+            console.log(jenis);
+
+            $('#id_merk').val(id);
+            $('#updateMerk').val(merk);
+            $('#updateJenis').val(jenis);
+            $('#modalUpdateMerkAlat').modal('toggle');
+        });
+
+        //update data jenis alat
+        $(document).on('click', 'button[data-role=modalUpdateJenisHt]', function() {
+            let id = $(this).data("key-update");
+            let jenis = $('#' + id).children('td[data-target=jenisAlat]').text();
+            let fungsi = $('#' + id).children('td[data-target=fungsiAlat]').text();
+
+            console.log(id);
+            console.log(jenis);
+            console.log(fungsi);
+
+            $('#id_jenis').val(id);
+            $('#updateJenisAlat').val(jenis);
+            $('#updateFungsiAlat').val(fungsi);
+            $('#modalUpdateJenisHt').modal('toggle');
+        });
+
+
+        //update assign data
+        $(document).on('click', 'button[data-role=updateAssignData]', function() {
+            let id = $(this).data("id");
+            let pengguna = $('#' + id).children('td[data-target=pengguna]').data("value");
+
+            console.log(id);
+            console.log(pengguna);
 
             $('#idStatus').val(id);
-            $('#updateTanggalPenarikan').val(tanggalPenarikan);
             $('#updatePengguna').val(pengguna);
             $('#modalUpdateAssignData').modal('toggle');
+        });
+
+        //update data user
+        $(document).on('click', 'button[data-role=modalUpdateUser]', function() {
+            let id = $(this).data("id");
+            let nama = $('#' + id).children('td[data-target=nama]').text();
+            let email = $('#' + id).children('td[data-target=email]').text();
+
+            console.log(id);
+            console.log(nama);
+            console.log(email);
+
+            $('#id_user').val(id);
+            $('#updatenama').val(nama);
+            $('#updateemail').val(email);
+            $('#modalUpdateUser').modal('toggle');
+        });
+
+        //update data admin
+        $(document).on('click', 'button[data-role=modalUpdateAdmin]', function() {
+            let id = $(this).data("id");
+            let nama = $('#' + id).children('td[data-target=nama]').text();
+            let email = $('#' + id).children('td[data-target=email]').text();
+
+            console.log(id);
+            console.log(nama);
+            console.log(email);
+
+            $('#id_user').val(id);
+            $('#updatenama').val(nama);
+            $('#updateemail').val(email);
+            $('#modalUpdateAdmin').modal('toggle');
         });
 
         // delete data pengguna
@@ -114,21 +166,6 @@
             $.ajax({
                 type: "get",
                 url: "pengguna-table/deletePengguna/" + id,
-                success: function() {
-                    $(column).closest("tr").remove();
-                    console.log("alhamdulillah jalan");
-                }
-            })
-        });
-
-        //delete data pegawai
-        $(document).on('click', 'button[data-role=deletePegawai]', function() {
-            let id = $(this).data("id");
-            let column = this;
-
-            $.ajax({
-                type: "get",
-                url: "pegawai-table/deletePegawai/" + id,
                 success: function() {
                     $(column).closest("tr").remove();
                     console.log("alhamdulillah jalan");
@@ -151,14 +188,59 @@
             })
         });
 
-        //delete data alat
-        $(document).on('click', 'button[data-role=deleteAlat]', function() {
+        //delete data Merk HT
+        $(document).on('click', 'button[data-role=deleteMerkHt]', function() {
             let id = $(this).data("id");
             let column = this;
 
             $.ajax({
                 type: "get",
-                url: "listAlat-table/deleteAlat/" + id,
+                url: "listAlat-table/deleteMerkHt/" + id,
+                success: function() {
+                    $(column).closest("tr").remove();
+                    console.log("alhamdulillah jalan");
+                }
+            })
+        });
+
+        //delete data Jenis HT
+        $(document).on('click', 'button[data-role=deleteJenisHt]', function() {
+            let id = $(this).data("id");
+            let column = this;
+
+            $.ajax({
+                type: "get",
+                url: "listAlat-table/deleteJenisHt/" + id,
+                success: function() {
+                    $(column).closest("tr").remove();
+                    console.log("alhamdulillah jalan");
+                }
+            })
+        });
+
+        //delete data user
+        $(document).on('click', 'button[data-role=deleteUser]', function() {
+            let id = $(this).data("id");
+            let column = this;
+
+            $.ajax({
+                type: "get",
+                url: "dataUser/deleteUserData/" + id,
+                success: function() {
+                    $(column).closest("tr").remove();
+                    console.log("alhamdulillah jalan");
+                }
+            })
+        });
+
+        //delete data admin
+        $(document).on('click', 'button[data-role=deleteAdmin]', function() {
+            let id = $(this).data("id");
+            let column = this;
+
+            $.ajax({
+                type: "get",
+                url: "dataAdmin/deleteAdminData/" + id,
                 success: function() {
                     $(column).closest("tr").remove();
                     console.log("alhamdulillah jalan");

@@ -7,15 +7,15 @@
 @section('content')
 <div class="row mb-3">
 
-    @foreach($lokasi as $lok)
+    @foreach($lokasi as $lokasi)
     <!-- Card Info HT per wilayah -->
     <div class="col-3 col-lg-5 mb-4">
         <div class="card h-100">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col mr-2 ">
-                        <a href="{{ route('dataAlamat-table') }}?lokasi={{$lok->lokasi}}">
-                            <div class="text-s font-weight-bold text-uppercase mb-1">{{$lok->lokasi}}, {{$lok->wilayah}}</div>
+                        <a href="{{ route('dataAlamat-table') }}?lokasi={{$lokasi->id}}">
+                            <div class="text-s font-weight-bold text-uppercase mb-1">{{$lokasi->lokasi}}, {{$lokasi->wilayah}}</div>
                         </a>
                         <div class="mt-2 mb-0 text-muted text-xs">
                             <span>Total HT</span>
@@ -26,7 +26,7 @@
                         $jumlahHT = 0;
                         $jml_array = count($status);
 
-                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($status[$i]->lokasi,$lok->lokasi) == 0){
+                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($status[$i]->id_lokasi,$lokasi->id) == 0){
                             $jumlahHT++;
                             }
                             }

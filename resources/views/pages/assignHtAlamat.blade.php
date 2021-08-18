@@ -8,23 +8,26 @@
 
 @php
 $number = 0;
-$lokasi = $_GET['lokasi'];
+$title = $lokasi->lokasi;
 @endphp
 <div class="row mb-3">
     <div class="col-lg-12 mb-4">
-        {{-- Simple Tables --}}
+
+        {{-- DataTable with Hover --}}
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <a href="{{route('assignHtLokasi')}}">
-                    <h6 class="m-0 font-weight-bold text-primary">@php echo $lokasi @endphp</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">@php echo $title @endphp</h6>
                 </a>
                 <button class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalInputAlamat">Tambah Alamat</button>
             </div>
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="alamatTableHover">
                     <thead class="thead-light">
                         <tr>
                             <th>No</th>
+                            <th>Kantor</th>
                             <th>Alamat</th>
                             <th>Total HT</th>
                         </tr>
@@ -39,16 +42,17 @@ $lokasi = $_GET['lokasi'];
                         <!-- Menghitung jumlah total ht dalam suatu alamat -->
                         @php
                         $jumlahHT = 0;
-                        $jml_array = count($lokasi_status);
+                        $jml_array = count($status);
 
-                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($lokasi_status[$i]->alamat_ht,$alamat->alamat) == 0){
+                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($status[$i]->id_alamat,$alamat->id) == 0){
                             $jumlahHT++;
                             }
                             }
                             @endphp
-                            <tr>
+                            <tr class='clickable-row' style="cursor:pointer;" data-href="{{route('assignHt')}}?alamat={{$alamat->id}}">
                                 <td>{{$number}}</td>
-                                <td><a href="{{route('assignHt')}}?alamat={{$alamat->alamat}}">{{$alamat -> alamat}}</a></td>
+                                <td>{{$alamat -> nama_kantor}}</td>
+                                <td>{{$alamat -> alamat}}</td>
                                 <td>{{$jumlahHT}}</td>
                             </tr>
                             @endforeach
@@ -70,11 +74,15 @@ $lokasi = $_GET['lokasi'];
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <label for="kantor">Kantor</label>
+                                    <input type="text" class="form-control" name="kantor" placeholder="Masukkan Nama Kantor" required="required">
+                                </div>
+                                <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <textarea class="form-control" name="alamat" rows="3" placeholder="Masukkan Alamat Baru" required="required"></textarea>
                                 </div>
                             </div>
-                            <input class="form-control mb-3" name="lokasi" value="@php echo $lokasi @endphp" hidden></input>
+                            <input class="form-control mb-3" name="lokasi" value="{{$lokasi->id}}" hidden></input>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                 <input type="submit" class="btn btn-primary" value="Tambah Data Alamat"></input>
@@ -89,3 +97,9 @@ $lokasi = $_GET['lokasi'];
     </div>
 </div>
 @endsection
+
+@push('js')
+{{-- Page level plugins --}}
+<script src="{{ asset('dist/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+@endpush

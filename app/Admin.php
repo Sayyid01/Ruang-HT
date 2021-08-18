@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticable
+class Admin extends Authenticable
 {
     use Notifiable;
 
-    protected $guard = 'user';
+    protected $guard = 'admin';
 
     protected $fillable = [
         'name', 'email', 'username', 'password','email_verfied_at'

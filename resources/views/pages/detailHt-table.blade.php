@@ -23,7 +23,7 @@ $numberPengguna = 0;
                 <h6 class="m-0 font-weight-bold text-primary">Gambar HT</h6>
             </div>
             <div class="p-5">
-                <img src="{{asset('dist/img/ht-image/gambarNoImage.png')}}" alt="" class="rounded mx-auto d-block" width="100%" height="auto">
+                <img src="{{ route('getGambarHT',$status->foto_alat) }}" alt="" class="rounded mx-auto d-block" width="100%" height="auto">
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@ $numberPengguna = 0;
                         </tr>
                         <tr>
                             <td>Merk</td>
-                            <td>{{$infoHt->merk}}</td>
+                            <td>{{$infoHt->merk_ht}}</td>
                         </tr>
                         <tr>
                             <td>Tipe HT</td>
@@ -69,16 +69,18 @@ $numberPengguna = 0;
                         </tr>
                         <tr>
                             <td>Pengguna</td>
-                            <td>{{$pengguna->nama_pengguna}}</td>
+                            <td>{{$pengguna->nama}}</td>
                         </tr>
                         <tr>
                             <td>Penanggung Jawab</td>
-                            <td>{{$penanggungJawab->nama}}, {{$penanggungJawab->no_pegawai}}</td>
+                            <td>{{$pengguna->nama}}, {{$pengguna->no_pegawai}}</td>
                         </tr>
-                        <tr>
-                            <td>Kontak Penanggung Jawab</td>
-                            <td>{{$penanggungJawab->no_telpon}}</td>
-                        </tr>
+                        <td>
+                            <div class="mb-4">
+                                <div class="card m-5 h-100">
+                                </div>
+                            </div>
+                        </td>
                     </tbody>
                 </table>
             </div>
@@ -91,7 +93,7 @@ $numberPengguna = 0;
     <div class="col mb-3">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Histori status HT</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Histori Status HT</h6>
             </div>
 
             <div class="table-responsive p-3">
@@ -106,16 +108,6 @@ $numberPengguna = 0;
                             <th>Lokasi</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Foto HT</th>
-                            <th>Status</th>
-                            <th>Kondisi</th>
-                            <th>Lokasi</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach($historiStatus as $status)
 
@@ -126,7 +118,7 @@ $numberPengguna = 0;
                         <tr>
                             <td>{{$numberStatus}}</td>
                             <td>{{$status->tanggal_cek}}</td>
-                            <td>{{$status->foto_alat}}</td>
+                            <td><a href="{{route('getGambarHT', $status->foto_alat)}}" target="_blank">{{$status->foto_alat}}</a></td>
                             @php
                             if($status->status == 0){
                             echo "<td><span class='badge badge-success'>Aktif</span></td>";
@@ -135,7 +127,7 @@ $numberPengguna = 0;
                             }
                             @endphp
                             <td>{{$status->kondisi}}</td>
-                            <td>{{$status->alamat_ht}}</td>
+                            <td>{{$status->id_alamat}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -144,6 +136,8 @@ $numberPengguna = 0;
 
         </div>
     </div>
+
+    <br>
 
     {{-- Datatables --}}
     <div class="col mb-3">
@@ -160,24 +154,9 @@ $numberPengguna = 0;
                             <th>Tanggal Alokasi</th>
                             <th>Tanggal Penarikan</th>
                             <th>Pengguna</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Jabatan</th>
                             <th>No Pegawai</th>
-                            <th>No Telpon</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal Alokasi</th>
-                            <th>Tanggal Penarikan</th>
-                            <th>Pengguna</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Jabatan</th>
-                            <th>No Pegawai</th>
-                            <th>No Telpon</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach($historiPengguna as $pengguna)
 
@@ -189,11 +168,8 @@ $numberPengguna = 0;
                             <td>{{$numberPengguna}}</td>
                             <td>{{$pengguna->tanggal_alokasi}}</td>
                             <td>{{$pengguna->tanggal_penarikan}}</td>
-                            <td>{{$pengguna->pengguna}}</td>
                             <td>{{$pengguna->nama}}</td>
-                            <td>{{$pengguna->jabatan}}</td>
                             <td>{{$pengguna->no_pegawai}}</td>
-                            <td>{{$pengguna->no_telpon}}</td>
                         </tr>
                         @endforeach
                     </tbody>

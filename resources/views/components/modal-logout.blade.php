@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                <h5 class="modal-title" id="exampleModalLabelLogout">Enough for today.</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,7 +12,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                <a href="login.html" class="btn btn-primary">Logout</a>
+                @if(Auth::guard('admin')->check())
+                <a href="{{route('admin.logout')}}" class="btn btn-primary">Logout</a>
+                @elseif(Auth::guard('user')->check())
+                <a href="{{route('user.logout')}}" class="btn btn-primary">Logout</a>
+                @endif
             </div>
         </div>
     </div>

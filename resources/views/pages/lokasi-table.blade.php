@@ -18,11 +18,12 @@ $number = 0;
                 <h6 class="m-0 font-weight-bold text-primary">Alamat</h6>
                 <button class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalInputAlamat">Tambah Alamat</button>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <th>No</th>
+                            <th>Kantor</th>
                             <th>Alamat</th>
                             <th>Lokasi</th>
                             <th>Wilayah</th>
@@ -38,8 +39,9 @@ $number = 0;
 
                         <tr id="{{$alamatTable->id}}">
                             <td>{{$number}}</td>
+                            <td data-target="kantor">{{$alamatTable->nama_kantor}}</td>
                             <td data-target="alamat">{{$alamatTable->alamat}}</td>
-                            <td data-target="lokasi">{{$alamatTable->lokasi}}</td>
+                            <td data-target="lokasi" data-id="{{$alamatTable->id_lokasi}}">{{$alamatTable->lokasi}}</td>
                             <td data-target="wilayah">{{$alamatTable->wilayah}}</td>
                             <td><button data-id="{{$alamatTable->id}}" class="btn btn-sm btn-primary" data-role="updateModalLokasi">Edit</button></td>
                         </tr>
@@ -62,6 +64,10 @@ $number = 0;
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <label for="alamat">Kantor</label>
+                                    <input class="form-control" name="kantor" placeholder="Masukkan Nama Kantor" required="required">
+                                </div>
+                                <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <textarea class="form-control" name="alamat" rows="3" placeholder="Masukkan Alamat Baru" required="required"></textarea>
                                 </div>
@@ -70,7 +76,7 @@ $number = 0;
                                     <select class="form-control mb-3" name="lokasi" required="required">
                                         <option value="" disabled selected>Pilih Lokasi</option>
                                         @foreach($lokasi as $lokasiSingle)
-                                        <option>{{$lokasiSingle->lokasi}}</option>
+                                        <option value="{{$lokasiSingle->id}}">{{$lokasiSingle->lokasi}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -135,15 +141,19 @@ $number = 0;
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="alamat">Kantor</label>
+                                    <input class="form-control" name="kantor_update" id="kantor_update" placeholder="Masukkan Nama Kantor" required="required">
+                                </div>
+                                <div class="form-group">
                                     <label for="alamat">Alamat</label>
                                     <textarea class="form-control" name="alamat_update" id="alamat_update" rows="3" required="required"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="lokasi">Lokasi</label>
-                                    <select class="form-control mb-3" name="lokasi_update" id="lokasi_update" required="required">
+                                    <select class="form-control mb-3" name="lokasi_update" id="lokasi_update" required>
                                         <option value="" disabled selected>Pilih Lokasi</option>
                                         @foreach($lokasi as $lokasiSingle)
-                                        <option>{{$lokasiSingle->lokasi}}</option>
+                                        <option value="{{$lokasiSingle->id}}">{{$lokasiSingle->lokasi}}</option>
                                         @endforeach
                                     </select>
                                 </div>

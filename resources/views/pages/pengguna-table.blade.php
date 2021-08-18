@@ -18,13 +18,15 @@ $number = 0;
                 <h6 class="m-0 font-weight-bold text-primary">Pengguna</h6>
                 <a href="#" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalInputUser">Tambah Pengguna</a>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <th>No</th>
+                            <th>No Pegawai</th>
                             <th>Nama Pengguna</th>
-                            <th>Penanggung Jawab</th>
+                            <th>Status Pekerja</th>
+                            <th>Alamat Kerja</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,8 +39,16 @@ $number = 0;
 
                         <tr id="{{$pengguna->id}}">
                             <td>{{$number}}</td>
-                            <td data-target="nama_pengguna">{{$pengguna->nama_pengguna}}</td>
-                            <td data-target="penanggung_jawab">{{$pengguna->penanggung_jawab}}</td>
+                            <td data-target="no_pegawai">{{$pengguna->no_pegawai}}</td>
+                            <td data-target="nama">{{$pengguna->nama}}</td>
+                            @php
+                            if($pengguna->status_pekerja == 1){
+                            echo "<td data-target='status_pekerja'>Pekerja</td>";
+                            }else{
+                            echo "<td data-target='status_pekerja'>Mitra</td>";
+                            }
+                            @endphp
+                            <td data-target="alamat_kerja">{{$pengguna->alamat}}</td>
                             <td><button data-id="{{$pengguna->id}}" data-role="modalUpdatePengguna" class="btn btn-sm btn-primary">Edit</button>
                                 <button data-id="{{$pengguna->id}}" data-role="deletePengguna" class="btn btn-sm btn-danger">Delete</button>
                             </td>
@@ -62,18 +72,31 @@ $number = 0;
                             <form action="{{route('tambahPengguna')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="namaPengguna">Nama Pengguna</label>
+                                    <label for="no_pegawai">No Pegawai</label>
+                                    <input type="text" class="form-control" name="no_pegawai" placeholder="No Pegawai" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama_pengguna">Nama Pengguna</label>
                                     <input type="text" class="form-control" name="nama_pengguna" placeholder="Nama Pengguna" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="penanggungJawab">Penanggung Jawab</label>
-                                    <select class="form-control mb-3" name="penanggungJawab" required>
-                                        <option value="" disabled selected>Pilih PJ</option>
-                                        @foreach($pegawai as $pegawaiInput)
-                                        <option>{{$pegawaiInput->nama}}</option>
+                                    <label for="status_pekerja">Status Pekerja</label>
+                                    <select class="form-control mb-3" name="status_pekerja" required>
+                                        <option value="" disabled selected>Pilih Status Pekerja</option>
+                                        <option value="1">Pekerja</option>
+                                        <option value="0">Mitra</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat_kerja">Alamat Kerja</label>
+                                    <select class="form-control mb-3" name="alamat_kerja" required>
+                                        <option value="" disabled selected>Pilih Alamat</option>
+                                        @foreach($alamat as $alamatKerja)
+                                        <option value="{{$alamatKerja->id}}">{{$alamatKerja->alamat}}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <input type="submit" class="btn btn-primary" value="Tambah Data Pengguna"></input>
@@ -107,15 +130,6 @@ $number = 0;
                                 <div class="form-group">
                                     <label for="updateNamaPengguna">Nama Pengguna</label>
                                     <input type="text" class="form-control" id="updateNamaPengguna" name="updateNamaPengguna" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="updatePenanggungJawab">Penanggung Jawab</label>
-                                    <select class="form-control mb-3" id="updatePenanggungJawab" name="updatePenanggungJawab">
-                                        <option value="" disabled selected>Pilih PJ</option>
-                                        @foreach($pegawai as $pegawaiUpdate)
-                                        <option>{{$pegawaiUpdate->nama}}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

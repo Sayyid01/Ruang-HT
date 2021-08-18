@@ -1,139 +1,97 @@
 <?php
 
-// Default laravel page
+Route::get('admin/login', 'Auth\AdminAuthController@getLogin')->name('admin.login');
+Route::post('admin/login', 'Auth\AdminAuthController@postLogin');
 
-use App\Http\Controllers\Admin\PenggunaController;
+Route::get('/login', 'Auth\UserAuthController@getLogin')->name('user.login');
+Route::post('/login', 'Auth\UserAuthController@postLogin');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware('auth:admin')->group(function () {
+    //GET Index
+    Route::get('admin/home', 'Main\LokasiController@getLokasi')->name('admin.index');
+    Route::get('admin/logout', 'Auth\AdminAuthController@postLogout')->name('admin.logout');
 
-Route::get('/login', function () {
-    return view('admin.pages.login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('admin.pages.register');
-})->name('register');
-
-
-// Admin Dashboard Route
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', 'LokasiController@getLokasi')->name('index');
-
-    //POSTT Lokasi
-    Route::post('/lokasi-table/tambahLokasi', 'LokasiController@tambahLokasi')->name('tambahLokasi');
-    Route::post('/lokasi-table/tambahAlamat', 'LokasiController@tambahAlamat')->name('tambahAlamat');
-    Route::post('/lokasi-table/updateLokasi', 'LokasiController@updateLokasi')->name('updateLokasi');
-    // Route::post('/forms-datareference/submitJenisHT', 'HTController@insertJenisHT')->name('submitJenisHT');
+    //POST Lokasi
+    Route::post('/lokasi-table/tambahLokasi', 'Main\LokasiController@tambahLokasi')->name('tambahLokasi');
+    Route::post('/lokasi-table/tambahAlamat', 'Main\LokasiController@tambahAlamat')->name('tambahAlamat');
+    Route::post('/lokasi-table/updateLokasi', 'Main\LokasiController@updateLokasi')->name('updateLokasi');
 
     //POST Pengguna & Pegawai
-    Route::post('/pengguna-table/tambahPengguna', 'PenggunaController@tambahDataPengguna')->name('tambahPengguna');
-    Route::post('/pengguna-table/updatePengguna', 'PenggunaController@updateDataPengguna')->name('updatePengguna');
-    Route::get('/pengguna-table/deletePengguna/{id_pengguna}', 'PenggunaController@deleteDataPengguna')->name('deletePengguna');
+    Route::post('/pengguna-table/tambahPengguna', 'Main\PenggunaController@tambahDataPengguna')->name('tambahPengguna');
+    Route::post('/pengguna-table/updatePengguna', 'Main\PenggunaController@updateDataPengguna')->name('updatePengguna');
+    Route::get('/pengguna-table/deletePengguna/{id_pengguna}', 'Main\PenggunaController@deleteDataPengguna')->name('deletePengguna');
 
-    Route::post('/pegawai-table/tambahPegawai', 'PenggunaController@tambahDataPegawai')->name('tambahPegawai');
-    Route::post('/pegawai-table/updatePegawai', 'PenggunaController@updateDataPegawai')->name('updatePegawai');
+    Route::post('/pegawai-table/tambahPegawai', 'Main\PenggunaController@tambahDataPegawai')->name('tambahPegawai');
+    Route::post('/pegawai-table/updatePegawai', 'Main\PenggunaController@updateDataPegawai')->name('updatePegawai');
 
     //POST List HT
-    Route::post('/listHt-table/tambahHt', 'HTController@tambahHt')->name('tambahHt');
-    Route::post('/listHt-table/updateHt', 'HTController@updateHt')->name('updateHt');
+    Route::post('/listHt-table/tambahHt', 'Main\HTController@tambahHt')->name('tambahHt');
+    Route::post('/listHt-table/updateHt', 'Main\HTController@updateHt')->name('updateHt');
 
     //POST Alat
-    Route::post('/listAlat-table/tambahAlat', 'HTController@tambahAlatBaru')->name('tambahAlatBaru');
-    Route::post('/listAlat-table/updateAlat', 'HTController@updateAlat')->name('updateAlat');
-
-    //POST Assign HT
-    Route::post('/assignHtLokasi/tambahLokasi', 'LokasiController@tambahLokasi')->name('tambahLokasi');
-    Route::post('/assignHtAlamat/tambahAlamat', 'LokasiController@tambahAlamat')->name('tambahAlamat');
-    Route::post('/assignHt/tambahAssignedHt', 'HTController@assignHt')->name('tambahAssignedHt');
-    Route::post('/assignHt/updateAssignedHt', 'HTController@updateAssignData')->name('updateAssignedHt');
-
-    //POST Detail HT
-    Route::post('/assignmentHtDetail/tambahHistoriStatus', 'DetailHtController@inputStatusBaru')->name('tambahHistoriStatus');
-    Route::post('/assignmentHtDetail/withdrawHt', 'DetailHtController@withdrawHt')->name('withdrawHt');
+    Route::post('/listAlat-table/tambahMerkAlat', 'Main\HTController@tambahMerkAlatBaru')->name('tambahMerkAlatBaru');
+    Route::post('/listAlat-table/updateMerk', 'Main\HTController@updateMerk')->name('updateMerk');
+    Route::post('/listAlat-table/tambahJenisAlat', 'Main\HTController@tambahJenisAlatBaru')->name('tambahJenisAlatBaru');
+    Route::post('/listAlat-table/updateJenis', 'Main\HTController@updateJenis')->name('updateJenis');
 
     //GET Lokasi
-    Route::get('/dataAlamat-table', 'LokasiController@getTableAlamat')->name('dataAlamat-table');
-    Route::get('/lokasi-table', 'LokasiController@getTableLokasi')->name('lokasi-table');
+    Route::get('/lokasi-table', 'Main\LokasiController@getTableLokasi')->name('lokasi-table');
 
     //GET Pengguna & Pegawai
-    Route::get('/pengguna-table', 'PenggunaController@getPenggunaTable')->name('pengguna-table');
-    Route::get('/pegawai-table', 'PenggunaController@getPegawaiTable')->name('pegawai-table');
-    Route::get('/pegawai-table/deletePegawai/{id_pegawai}', 'PenggunaController@deleteDataPegawai')->name('deletePegawai');
+    Route::get('/pengguna-table', 'Main\PenggunaController@getPenggunaTable')->name('pengguna-table');
+    Route::get('/pegawai-table/deletePegawai/{id_pengguna}', 'Main\PenggunaController@deleteDataPengguna')->name('deletePengguna');
 
     //GET List HT
-    Route::get('/listHt-table', 'HTController@getTableHT')->name('listHt-table');
-    Route::get('/listHt-table/deleteHt/{id_infoHt}', 'HTController@deleteHt')->name('deleteHt');
-
-    //GET Detail HT
-    Route::get('/detailHt-table', 'HTController@getDetailAssign')->name('detailHt-table');
-    Route::get('/dataHtPerLokasi-table', 'HTController@getDataHtPerLokasi')->name('dataHtPerLokasi-table');
+    Route::get('/listHt-table', 'Main\HTController@getTableHT')->name('listHt-table');
+    Route::get('/listHt-table/deleteHt/{id_infoHt}', 'Main\HTController@deleteHt')->name('deleteHt');
 
     //GET Alat
-    Route::get('/listAlat-table', 'HTController@getTableAlat')->name('listAlat-table');
-    Route::get('/listAlat-table/deleteAlat/{id_alat}', 'HTController@deleteAlat')->name('deleteAlat');
+    Route::get('/listAlat-table', 'Main\HTController@getTableAlat')->name('listAlat-table');
+    Route::get('/listAlat-table/deleteMerkHt/{id_merk}', 'Main\HTController@deleteMerkHt')->name('deleteMerkHt');
+    Route::get('/listAlat-table/deleteJenisHt/{id_jenis}', 'Main\HTController@deleteJenis')->name('deleteJenisHt');
 
-    //GET Assign HT
-    Route::get('/assignmentHtDetail', 'DetailHtController@getAssignmentHtDetail')->name('assignmentHtDetail');
-    Route::get('/assignHtLokasi', 'HTController@getLokasiAssign')->name('assignHtLokasi');
-    Route::get('/assignHtAlamat', 'HTController@getTableAlamat')->name('assignHtAlamat');
-    Route::get('/assignHt', 'HTController@getAssignHt')->name('assignHt');
+    //USER SETTINGS
+    Route::get('/dataAdmin', 'Main\UserController@getAdminData')->name('dataAdmin');
+    Route::get('/dataAdmin/deleteAdminData/{id_user}', 'Main\UserController@deleteAdminData')->name('deleteAdminData');
+    Route::post('/dataAdmin/updateAdminData', 'Main\UserController@updateAdminData')->name('updateAdminData');
+    Route::post('/dataAdmin/addAdminData', 'Main\UserController@addAdminData')->name('addAdminData');
 
-    // Bawaan dari template
-    Route::get('/alerts', function () {
-        return view('admin.pages.alerts');
-    })->name('alerts');
-
-    Route::get('/buttons', function () {
-        return view('admin.pages.buttons');
-    })->name('buttons');
-
-    Route::get('/dropdowns', function () {
-        return view('admin.pages.dropdowns');
-    })->name('dropdowns');
-
-    Route::get('/modals', function () {
-        return view('admin.pages.modals');
-    })->name('modals');
-
-    Route::get('/popovers', function () {
-        return view('admin.pages.popovers');
-    })->name('popovers');
-
-    Route::get('/progress-bars', function () {
-        return view('admin.pages.progress-bars');
-    })->name('progress-bars');
-
-    Route::get('/forms-basic', function () {
-        return view('admin.pages.forms-basic');
-    })->name('forms-basic');
-
-    Route::get('/forms-advanced', function () {
-        return view('admin.pages.forms-advanced');
-    })->name('forms-advanced');
-
-    Route::get('/simple-table', function () {
-        return view('admin.pages.simple-table');
-    })->name('simple-table');
-
-    Route::get('/datatables', function () {
-        return view('admin.pages.datatables');
-    })->name('datatables');
-
-    Route::get('/ui-colours', function () {
-        return view('admin.pages.ui-colours');
-    })->name('ui-colours');
-
-    Route::get('/404', function () {
-        return view('admin.pages.404');
-    })->name('404');
-
-    Route::get('/blank-page', function () {
-        return view('admin.pages.blank-page');
-    })->name('blank-page');
-
-    Route::get('/charts', function () {
-        return view('admin.pages.charts');
-    })->name('charts');
+    Route::get('/dataUser', 'Main\UserController@getUserData')->name('dataUser');
+    Route::get('/dataUser/deleteUserData/{id_user}', 'Main\UserController@deleteUserData')->name('deleteUserData');
+    Route::post('/dataUser/updateUserData', 'Main\UserController@updateUserData')->name('updateUserData');
+    Route::post('/dataUser/addUserData', 'Main\UserController@addUserData')->name('addUserData');
 });
+
+Route::middleware('auth:user')->group(function () {
+    //GET Index
+    Route::get('user/home', 'Main\LokasiController@getLokasi')->name('user.index');
+    Route::get('/logout', 'Auth\UserAuthController@postLogout')->name('user.logout');
+});
+
+//GET Detail HT
+Route::get('/dataAlamat-table', 'Main\LokasiController@getTableAlamat')->name('dataAlamat-table');
+Route::get('/dataHtPerLokasi-table', 'Main\HTController@getDataHtPerLokasi')->name('dataHtPerLokasi-table');
+Route::get('/assignHt/{filename}', 'Main\HTController@getFile')->name('getFile');
+Route::get('/detailHt-table', 'Main\HTController@getDetailAssign')->name('detailHt-table');
+
+//POST Assign HT
+Route::post('/assignHtLokasi/tambahLokasi', 'Main\LokasiController@tambahLokasi')->name('tambahLokasi');
+Route::post('/assignHtAlamat/tambahAlamat', 'Main\LokasiController@tambahAlamat')->name('tambahAlamat');
+Route::post('/assignHt/tambahAssignedHt', 'Main\HTController@assignHt')->name('tambahAssignedHt');
+Route::post('/assignHt/updateAssignedHt', 'Main\HTController@updateAssignData')->name('updateAssignedHt');
+
+//POST Detail HT
+Route::post('/assignmentHtDetail/tambahHistoriStatus', 'Main\DetailHtController@inputStatusBaru')->name('tambahHistoriStatus');
+Route::post('/assignmentHtDetail/withdrawHt', 'Main\DetailHtController@withdrawHt')->name('withdrawHt');
+
+//GET Assign HT
+Route::get('/assignmentHtDetail', 'Main\DetailHtController@getAssignmentHtDetail')->name('assignmentHtDetail');
+Route::get('/assignmentHtDetail/{filename}', 'Main\DetailHtController@getGambarHT')->name('getGambarHT');
+Route::get('/assignHtLokasi', 'Main\HTController@getLokasiAssign')->name('assignHtLokasi');
+Route::get('/assignHtAlamat', 'Main\HTController@getTableAlamat')->name('assignHtAlamat');
+Route::get('/assignHt', 'Main\HTController@getAssignHt')->name('assignHt');
+
+//404
+Route::get('/404', function () {
+    return view('pages.404');
+})->name('404');

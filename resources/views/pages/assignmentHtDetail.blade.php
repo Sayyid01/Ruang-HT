@@ -24,7 +24,7 @@ $numberPengguna = 0;
                 <h6 class="m-0 font-weight-bold text-primary">Gambar HT</h6>
             </div>
             <div class="p-5">
-                <img src="{{asset('dist/img/ht-image/gambarNoImage.png')}}" alt="" class="rounded mx-auto d-block" width="100%" height="auto">
+                <img src="{{ route('getGambarHT',$status->foto_alat) }}" alt="" class="rounded mx-auto d-block" width="100%" height="auto">
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@ $numberPengguna = 0;
                         </tr>
                         <tr>
                             <td>Merk</td>
-                            <td>{{$infoHt->merk}}</td>
+                            <td>{{$infoHt->merk_ht}}</td>
                         </tr>
                         <tr>
                             <td>Tipe HT</td>
@@ -70,15 +70,11 @@ $numberPengguna = 0;
                         </tr>
                         <tr>
                             <td>Pengguna</td>
-                            <td>{{$pengguna->nama_pengguna}}</td>
+                            <td>{{$pengguna->nama}}</td>
                         </tr>
                         <tr>
                             <td>Penanggung Jawab</td>
-                            <td>{{$penanggungJawab->nama}}, {{$penanggungJawab->no_pegawai}}</td>
-                        </tr>
-                        <tr>
-                            <td>Kontak Penanggung Jawab</td>
-                            <td>{{$penanggungJawab->no_telpon}}</td>
+                            <td>{{$pengguna->nama}}, {{$pengguna->no_pegawai}}</td>
                         </tr>
                         <tr>
                             <td>
@@ -86,7 +82,7 @@ $numberPengguna = 0;
                                     <div class="card h-100">
                                         <button class="card-body btn btn-warning" data-toggle="modal" title="Inspeksi HT" data-target="#modalInspeksiHt">
                                             <div class="align-items-center">
-                                                <i class="fas fa-list-ul fa-4x"></i>
+                                                <i class="fa fa-search-plus fa-4x"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -96,7 +92,7 @@ $numberPengguna = 0;
                                     <div class="card h-100">
                                         <button class="card-body btn btn-danger" data-toggle="modal" title="Withdraw HT" data-target="#modalWithdrawHt">
                                             <div class="align-items-center">
-                                                <i class="fas fa-minus-circle fa-4x"></i>
+                                                <i class="fa fa-undo fa-4x"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -118,7 +114,7 @@ $numberPengguna = 0;
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('tambahHistoriStatus') }}" method="POST">
+                <form action="{{ route('tambahHistoriStatus') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="modal-body">
@@ -126,8 +122,9 @@ $numberPengguna = 0;
                         <div hidden>
                             <input type="text" name="snHt" class="form-control" value="{{$infoHt->sn_ht}}" readonly>
                             <input type="date" name="tanggalAlokasi" class="form-control" value="{{$status->tanggal_alokasi}}" readonly>
-                            <input type="text" name="alamat" class="form-control" value="{{$status->alamat_ht}}" readonly></input>
-                            <input type="text" name="pengguna" class="form-control" value="{{$status->pengguna}}" readonly></input>
+                            <input type="text" name="alamat" class="form-control" value="{{$status->id_alamat}}" readonly></input>
+                            <input type="text" name="pengguna" class="form-control" value="{{$status->id_pengguna_ht}}" readonly></input>
+                            <input type="text" name="surat_terima" class="form-control" value="{{$status->surat_terima}}" readonly></input>
                         </div>
                         <!-- dilihat pengguna -->
                         <div class="form-group">
@@ -135,10 +132,10 @@ $numberPengguna = 0;
                             <input class="form-control" type="date" name="tanggalPeriksa" required>
                         </div>
                         <div class="form-group">
-                            <label for="customFile">Upload Gambar</label>
+                            <label for="gambarht">Upload Gambar</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Masukkan gambar HT</label>
+                                <input type="file" class="custom-file-input" name="gambarht" id="gambarht">
+                                <label class="custom-file-label" for="gambarht">Masukkan gambar HT</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -214,16 +211,6 @@ $numberPengguna = 0;
                             <th>Lokasi</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Foto HT</th>
-                            <th>Status</th>
-                            <th>Kondisi</th>
-                            <th>Lokasi</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach($historiStatus as $status)
 
@@ -234,7 +221,7 @@ $numberPengguna = 0;
                         <tr>
                             <td>{{$numberStatus}}</td>
                             <td>{{$status->tanggal_cek}}</td>
-                            <td>{{$status->foto_alat}}</td>
+                            <td><a href="{{route('getGambarHT', $status->foto_alat)}}" target="_blank">{{$status->foto_alat}}</a></td>
                             @php
                             if($status->status == 0){
                             echo "<td><span class='badge badge-success'>Aktif</span></td>";
@@ -243,7 +230,7 @@ $numberPengguna = 0;
                             }
                             @endphp
                             <td>{{$status->kondisi}}</td>
-                            <td>{{$status->alamat_ht}}</td>
+                            <td>{{$status->id_alamat}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -268,24 +255,9 @@ $numberPengguna = 0;
                             <th>Tanggal Alokasi</th>
                             <th>Tanggal Penarikan</th>
                             <th>Pengguna</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Jabatan</th>
                             <th>No Pegawai</th>
-                            <th>No Telpon</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal Alokasi</th>
-                            <th>Tanggal Penarikan</th>
-                            <th>Pengguna</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Jabatan</th>
-                            <th>No Pegawai</th>
-                            <th>No Telpon</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach($historiPengguna as $pengguna)
 
@@ -297,11 +269,8 @@ $numberPengguna = 0;
                             <td>{{$numberPengguna}}</td>
                             <td>{{$pengguna->tanggal_alokasi}}</td>
                             <td>{{$pengguna->tanggal_penarikan}}</td>
-                            <td>{{$pengguna->pengguna}}</td>
                             <td>{{$pengguna->nama}}</td>
-                            <td>{{$pengguna->jabatan}}</td>
                             <td>{{$pengguna->no_pegawai}}</td>
-                            <td>{{$pengguna->no_telpon}}</td>
                         </tr>
                         @endforeach
                     </tbody>

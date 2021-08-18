@@ -8,20 +8,25 @@
 
 @php
 $number = 0;
-$lokasi = $_GET['lokasi'];
+$title = $lokasi->lokasi;
 @endphp
 <div class="row mb-3">
     <div class="col-lg-12 mb-4">
-        {{-- Simple Tables --}}
+
+        {{-- DataTable with Hover --}}
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <a href="{{route('index')}}"><h6 class="m-0 font-weight-bold text-primary">@php echo $lokasi @endphp</h6></a>
+                <a href="{{route('assignHtLokasi')}}">
+                    <h6 class="m-0 font-weight-bold text-primary">@php echo $title @endphp</h6>
+                </a>
             </div>
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="alamatTableHover">
                     <thead class="thead-light">
                         <tr>
                             <th>No</th>
+                            <th>Kantor</th>
                             <th>Alamat</th>
                             <th>Total HT</th>
                         </tr>
@@ -36,20 +41,20 @@ $lokasi = $_GET['lokasi'];
                         <!-- Menghitung jumlah total ht dalam suatu alamat -->
                         @php
                         $jumlahHT = 0;
-                        $jml_array = count($lokasi_status);
-                        
-                        for ($i = 0; $i < $jml_array; $i++){
-                            if(strcmp($lokasi_status[$i]->alamat_ht,$alamat->alamat) == 0){
-                                $jumlahHT++;
+                        $jml_array = count($status);
+
+                        for ($i = 0; $i < $jml_array; $i++){ if(strcmp($status[$i]->id_alamat,$alamat->id) == 0){
+                            $jumlahHT++;
                             }
-                        }
-                        @endphp
-                        <tr>
-                            <td>{{$number}}</td>
-                            <td><a href="{{route('dataHtPerLokasi-table')}}?alamat={{$alamat->alamat}}">{{$alamat -> alamat}}</a></td>
-                            <td>{{$jumlahHT}}</td>
-                        </tr>
-                        @endforeach
+                            }
+                            @endphp
+                            <tr class='clickable-row' style="cursor:pointer;" data-href="{{route('dataHtPerLokasi-table')}}?alamat={{$alamat->id}}">
+                                <td>{{$number}}</td>
+                                <td>{{$alamat -> nama_kantor}}</td>
+                                <td>{{$alamat -> alamat}}</td>
+                                <td>{{$jumlahHT}}</td>
+                            </tr>
+                            @endforeach
                     </tbody>
                 </table>
             </div>

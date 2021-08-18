@@ -13,14 +13,14 @@
                 <h6 class="m-0 font-weight-bold text-primary">Handy Talkie</h6>
                 <a href="#" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalInputUser">Tambah HT</a>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
                             <th>SN HT</th>
                             <th>SN Baterai</th>
                             <th>Merk</th>
-                            <th>Jenis HT</th>
+                            <th>Jenis</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,8 +29,8 @@
                         <tr id="{{$listHt->id}}">
                             <td data-target="snHt">{{$listHt->sn_ht}}</td>
                             <td data-target="snBaterai">{{$listHt->sn_baterai}}</td>
-                            <td data-target="merk">{{$listHt->merk}}</td>
-                            <td data-target="jenisHt">{{$listHt->jenis_ht}}</td>
+                            <td data-target="merk" data-id="{{$listHt->id_merk_ht}}">{{$listHt->merk_ht}}</td>
+                            <td data-target="jenis">{{$listHt->jenis_ht}}</td>
                             <td><button data-id="{{$listHt->id}}" data-role="modalUpdateListHT" class="btn btn-sm btn-primary">Edit</button>
                                 <button data-id="{{$listHt->id}}" data-role="deleteHt" class="btn btn-sm btn-danger">Delete</button>
                             </td>
@@ -65,17 +65,8 @@
                                     <label for="merk">Merk HT</label>
                                     <select class="form-control mb-3" name="merk" required>
                                         <option value="" disabled selected>Pilih Merk HT</option>
-                                        @foreach($alat as $jenisHt)
-                                        <option>{{$jenisHt->merk}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenisHt">Jenis HT</label>
-                                    <select class="form-control mb-3" name="jenisHt" required>
-                                        <option value="" disabled selected>Pilih Jenis HT</option>
-                                        @foreach($alat as $jenisHt)
-                                        <option>{{$jenisHt->jenis}}</option>
+                                        @foreach($merkHt as $merk)
+                                        <option value="{{$merk->id}}">{{$merk->merk_ht}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -118,15 +109,11 @@
                                     <input type="text" class="form-control" id="updateSnBaterai" name="updateSnBaterai" placeholder="SerialNumber Baterai" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="updateMerk">Merk</label>
-                                    <input type="text" class="form-control" id="updateMerk" name="updateMerk" placeholder="Merk HT" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="updateJenisHt">Jenis HT</label>
-                                    <select class="form-control mb-3" id="updateJenisHt" name="updateJenisHt" required>
-                                        <option value="" disabled selected>Pilih Jenis HT</option>
-                                        @foreach($alat as $jenisHt)
-                                        <option>{{$jenisHt->jenis}}</option>
+                                    <label for="updateMerk">Merk HT</label>
+                                    <select class="form-control mb-3" id="updateMerk" name="updateMerk" required>
+                                        <option value="" disabled selected>Pilih Merk HT</option>
+                                        @foreach($merkHt as $merk)
+                                        <option value="{{$merk->id}}">{{$merk->merk_ht}}</option>
                                         @endforeach
                                     </select>
                                 </div>
