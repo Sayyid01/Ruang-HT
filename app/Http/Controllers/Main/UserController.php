@@ -26,7 +26,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => [
-                'required', 'string', 'min:6', 'regex:/[a-z]/',
+                'required', 'string', 'min:6', 
                 'regex:/[a-z]/',
                 'regex:/[0-9]/',
                 'regex:/[@$!%*#?&]/'
@@ -35,7 +35,7 @@ class UserController extends Controller
 
 
         if ($comparison == 0 && $validator->fails() == false) {
-            User::create([
+            Admin::create([
                 'name' => $request->nama,
                 'email' => $request->email,
                 'password' => bcrypt($request->password)
@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => [
-                'required', 'string', 'min:6', 'regex:/[a-z]/',
+                'required', 'string', 'min:6', 
                 'regex:/[a-z]/',
                 'regex:/[0-9]/',
                 'regex:/[@$!%*#?&]/'
@@ -95,7 +95,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => [
-                'required', 'string', 'min:6', 'regex:/[a-z]/',
+                'required', 'string', 'min:6', 
                 'regex:/[a-z]/',
                 'regex:/[0-9]/',
                 'regex:/[@$!%*#?&]/'
@@ -127,7 +127,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => [
-                'required', 'string', 'min:6', 'regex:/[a-z]/',
+                'required', 'string', 'min:6', 
                 'regex:/[a-z]/',
                 'regex:/[0-9]/',
                 'regex:/[@$!%*#?&]/'

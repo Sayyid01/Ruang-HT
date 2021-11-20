@@ -15,7 +15,7 @@ class AdminTableSeeder extends Seeder
         Admin::create([
             'name' => 'admin',
             'email' => 'admin@pertamina.com',
-            'password' => bcrypt('pertaminaXtelkom'),
+            'password' => bcrypt('pertamax9an@@@'),
         ]);
     }
 }

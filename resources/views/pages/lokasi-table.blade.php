@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('title', 'Table Alamat')
-@section('title-2', 'Table Alamat')
-@section('title-3', 'Table Alamat')
+@section('title', 'Lokasi Kantor')
+@section('title-2', 'Lokasi Kantor')
+@section('title-3', 'Lokasi Kantor')
 
 @section('content')
 

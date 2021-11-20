@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Merk HT</h6>
-                <button" class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalTambahAlat">Tambah Merk Baru</button>
+                <button class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalTambahAlat">Tambah Merk Baru</button>
             </div>
             <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
@@ -43,7 +43,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalInputUserTitle">Tambah Jenis Alat</h5>
+                            <h5 class="modal-title" id="modalInputUserTitle">Tambah Merk Alat</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -80,7 +80,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalUpdatePenggunaTitle">Update Data Alat</h5>
+                            <h5 class="modal-title" id="modalUpdatePenggunaTitle">Update Merk Alat</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -130,7 +130,7 @@
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Jenis HT</h6>
-                <button class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalTambahJenisAlat">Tambah Jenis HT Baru</button>
+                <button class="btn btn-sm btn-success mr-3" data-toggle="modal" data-target="#modalTambahJenisHt">Tambah Jenis HT Baru</button>
             </div>
             <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush">
@@ -160,7 +160,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalInputUserTitle">Tambah Data Alat</h5>
+                            <h5 class="modal-title" id="modalInputUserTitle">Tambah Jenis Alat</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -191,7 +191,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalUpdatePenggunaTitle">Update Data Alat</h5>
+                            <h5 class="modal-title" id="modalUpdatePenggunaTitle">Update Jenis Alat</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

@@ -34,8 +34,9 @@ class DetailHtController extends Controller
         $historiStatus = DB::table('status')
             ->where('sn_ht', $sn_ht)
             ->orderBy('tanggal_cek', 'desc')
-            ->orderBy('id', 'desc')
-            ->select('tanggal_cek', 'foto_alat', 'id_pengguna_ht', 'status', 'kondisi', 'id_alamat')
+            ->orderBy('status.id', 'desc')
+            ->join('alamat', 'status.id_alamat', '=', 'alamat.id')
+            ->select('tanggal_cek', 'foto_alat', 'id_pengguna_ht', 'status', 'kondisi', 'alamat.alamat')
             ->get();
 
         $historiPengguna = DB::table('status')
@@ -133,7 +134,8 @@ class DetailHtController extends Controller
             ->where('status.redacted', '0')
             ->update([
                 'status.tanggal_penarikan' => $request->tanggalPenarikan,
-                'status.status' => '1',
+                'status.status' => $request->statusWithdraw,
+                'status.kondisi' => $request->kondisiWithdraw,
                 'status.redacted' => '1',
                 'info_ht.assigned' => '0'
             ]);

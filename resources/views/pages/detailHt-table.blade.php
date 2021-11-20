@@ -56,10 +56,21 @@ $numberPengguna = 0;
                         <tr>
                             <td>Status HT</td>
                             @php
-                            if($status->status == 0){
-                            echo "<td><span class='badge badge-success'>Aktif</span></td>";
-                            }else{
-                            echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                            switch($status->status){
+                            case 0:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
+                            break;
+                            case 1:
+                            echo "<td><span class='badge badge-warning'>Rusak</span></td>";
+                            break;
+                            case 2:
+                            echo "<td><span class='badge badge-primary'>Diperbaiki</span></td>";
+                            break;
+                            case 3:
+                            echo "<td><span class='badge badge-danger'>Hilang</span></td>";
+                            break;
+                            default:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
                             }
                             @endphp
                         </tr>
@@ -120,10 +131,21 @@ $numberPengguna = 0;
                             <td>{{$status->tanggal_cek}}</td>
                             <td><a href="{{route('getGambarHT', $status->foto_alat)}}" target="_blank">{{$status->foto_alat}}</a></td>
                             @php
-                            if($status->status == 0){
-                            echo "<td><span class='badge badge-success'>Aktif</span></td>";
-                            }else{
-                            echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                            switch($status->status){
+                            case 0:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
+                            break;
+                            case 1:
+                            echo "<td><span class='badge badge-warning'>Rusak</span></td>";
+                            break;
+                            case 2:
+                            echo "<td><span class='badge badge-primary'>Diperbaiki</span></td>";
+                            break;
+                            case 3:
+                            echo "<td><span class='badge badge-danger'>Hilang</span></td>";
+                            break;
+                            default:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
                             }
                             @endphp
                             <td>{{$status->kondisi}}</td>

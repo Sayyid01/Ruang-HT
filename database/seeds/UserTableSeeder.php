@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
         User::create([
             'name' => 'User',
             'email' => 'user@pertamina.com',
-            'password' => bcrypt('pertaminaXtelkom'),
+            'password' => bcrypt('pertamax9an@@@'),
         ]);
     }
 }

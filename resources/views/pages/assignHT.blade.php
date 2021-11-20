@@ -43,10 +43,21 @@ $title = $alamat->alamat;
                             <td>{{$status->tanggal_alokasi}}</td>
                             <td data-target="surat_terima"><a href="{{route('getFile', $status->surat_terima)}}" target="_blank">{{$status->surat_terima}}</a></td>
                             @php
-                            if($status -> status == 0){
-                            echo "<td><span class='badge badge-success'>Aktif</span></td>";
-                            }else{
-                            echo "<td><span class='badge badge-danger'>Nonaktif</span></td>";
+                            switch($status->status){
+                            case 0:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
+                            break;
+                            case 1:
+                            echo "<td><span class='badge badge-warning'>Rusak</span></td>";
+                            break;
+                            case 2:
+                            echo "<td><span class='badge badge-primary'>Diperbaiki</span></td>";
+                            break;
+                            case 3:
+                            echo "<td><span class='badge badge-danger'>Hilang</span></td>";
+                            break;
+                            default:
+                            echo "<td><span class='badge badge-success'>Normal</span></td>";
                             }
                             @endphp
                             <td>
@@ -108,8 +119,10 @@ $title = $alamat->alamat;
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select class="form-control mb-3" name="status" required="required">
-                                        <option value="0" selected>Aktif</option>
-                                        <option value="1">Nonaktif</option>
+                                        <option value="0" selected>Normal</option>
+                                        <option value="1">Rusak</option>
+                                        <option value="2">Diperbaiki</option>
+                                        <option value="3">Hilang</option>
                                     </select>
                                 </div>
                             </div>
@@ -151,8 +164,10 @@ $title = $alamat->alamat;
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select class="form-control mb-3" id="updateStatus" name="updateStatus" required="required">
-                                        <option value="0" selected>Aktif</option>
-                                        <option value="1">Nonaktif</option>
+                                        <option value="0" selected>Normal</option>
+                                        <option value="1">Rusak</option>
+                                        <option value="2">Diperbaiki</option>
+                                        <option value="3">Hilang</option>
                                     </select>
                                 </div>
                             </div>

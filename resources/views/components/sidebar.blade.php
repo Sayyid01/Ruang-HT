@@ -45,7 +45,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Data Table</h6>
                 <a class="collapse-item{{ request()->is('pengguna-table') ? ' active' : '' }}" href="{{ route('pengguna-table') }}">Data Pengguna</a>
-                <a class="collapse-item{{ request()->is('lokasi-table') ? ' active' : '' }}" href="{{ route('lokasi-table') }}">Data Alamat</a>
+                <a class="collapse-item{{ request()->is('lokasi-table') ? ' active' : '' }}" href="{{ route('lokasi-table') }}">Data Lokasi Kantor</a>
             </div>
         </div>
     </li>
@@ -64,8 +64,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Input Form</h6>
                 <a class="collapse-item{{ request()->is('assignHtLokasi') ? ' active' : '' }}" href="{{ route('assignHtLokasi') }}">Assign HT</a>
-                <a class="collapse-item{{ request()->is('listHt-table') ? ' active' : '' }}" href="{{ route('listHt-table') }}" style="display: <?= $registerForm ?>">List HT</a>
-                <a class="collapse-item{{ request()->is('listAlat-table') ? ' active' : '' }}" href="{{ route('listAlat-table') }}" style="display: <?= $registerForm ?>">List Alat</a>
+                <a class="collapse-item{{ request()->is('listHt-table') ? ' active' : '' }}" href="{{ route('listHt-table') }}" style="display: <?= $registerForm ?>">Data HT</a>
+                <a class="collapse-item{{ request()->is('listAlat-table') ? ' active' : '' }}" href="{{ route('listAlat-table') }}" style="display: <?= $registerForm ?>">Info Alat</a>
             </div>
         </div>
     </li>

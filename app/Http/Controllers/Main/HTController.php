@@ -204,7 +204,7 @@ class HTController extends Controller
             $status = DB::table('status')
                 ->where('redacted', '=', 0)
                 ->rightJoin('alamat', 'status.id_alamat', '=', 'alamat.id')
-                ->select('alamat.id_lokasi')
+                ->select('alamat.id_lokasi', 'status.status')
                 ->get();
         } catch (Exception $e) {
             $errorCode = $e->errorInfo[1];
